@@ -1,0 +1,24 @@
+[project]
+name = "izzy-devices"
+version = "0.1.0"
+description = "Client and Server classes for the IZZY Project."
+authors = [
+    {name = "Rich Dionne",email = "rdionne@purdue.edu"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python"
+]
+
+[project.urls]
+Repository = ""
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
