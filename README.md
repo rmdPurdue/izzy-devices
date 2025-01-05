@@ -28,12 +28,11 @@ device, including physical dimensions, network information installed sensor pack
 information. A ``server`` stores network information and a collection of ``client`` instances--one instance for each
 physical IZZY device on the network.
 
-```{note}
-When instantiated in software on an IZZY device, a ``server`` instance should not be
-used to hold a list of ``client`` devices as remote devices should not communicate to
-each other. A ``server`` instance on an IZZY device should only be used to store network
-information about the Mother device.
-```
+>[!NOTE]
+>When instantiated in software on an IZZY device, a ``server`` instance should not be
+>used to hold a list of ``client`` devices as remote devices should not communicate to
+>each other. A ``server`` instance on an IZZY device should only be used to store network
+>information about the Mother device.
 
 The ``izzy-devices`` package provides the ``Client`` and ``Server`` classes as well as enumerations for statuses for
 both ``client`` and ``server`` devices.
