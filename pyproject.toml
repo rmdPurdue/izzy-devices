@@ -5,6 +5,7 @@ description = "Client and Server classes for the IZZY Project."
 authors = [
     {name = "Rich Dionne",email = "rdionne@purdue.edu"}
 ]
+
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -17,8 +18,11 @@ classifiers = [
 ]
 
 [project.urls]
-Repository = ""
+repository = "https://github.com/rmdPurdue/izzy-devices"
+
+[tool.hatch.build.targets.wheel]
+packages = ["izzy_devices"]
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"

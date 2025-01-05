@@ -5,7 +5,7 @@ Scenery Simulation Project) as well as enumerations for statuses for both client
 ## Installation
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install `izzy-devices`.
 ```bash
-pip install izzy-devices
+pip install izzy_devices
 ```
 
 ## Background
