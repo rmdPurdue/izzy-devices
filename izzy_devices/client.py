@@ -1,10 +1,17 @@
 import math
+import struct
 from datetime import datetime
+from logger import setup_logger
+
+logger = setup_logger(__name__, 'heartbeat-log')
 
 
 class Client:
     """
     A class to store status information about IZZY devices.
+
+    delimiter (bytearray)
+        The delimiter for bytearray message building.
 
     name (str)
         A user-friendly name for the device.
@@ -52,6 +59,7 @@ class Client:
         The resolution of the motor wheels, in encoder ticks per degree of turn.
     """
 
+    delimiter = ",".encode()
     name = None
     uuid = None
     ip_address = None
@@ -99,3 +107,55 @@ class Client:
         When called, sets the value of `last_contact` to the current time.S
         """
         self.last_contact = datetime.now()
+
+    def build_base_response(self):
+        """
+        When called, builds a bytearray that contains the client status, name, x, y, z positions, heading,
+        and speed with "," as delimiters.
+
+        Returns
+        -------
+        A bytearray.
+        """
+        data = bytearray(self.name.encode())
+        data.extend(self.delimiter)
+        data.extend(struct.pack("i", self.status.value))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("i", self.position["x"]))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("i", self.position["y"]))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("i", self.position["z"]))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("i", self.heading))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("i", self.speed))
+
+        return data
+
+    def build_following_response(self):
+        data = self.build_base_response()
+        data.extend(self.delimiter)
+        data.extend(struct.pack("f", self.pid_kp))
+        data.extened(self.delimiter)
+        data.extend(struct.pack("f", self.pid_ki))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("f", self.pid_kd))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("f", self.error))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("f", self.error_angle))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("f", self.line_sensor_1_min))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("f", self.line_sensor_1_max))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("f", self.line_sensor_1_read))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("f", self.line_sensor_2_min))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("f", self.line_sensor_2_max))
+        data.extend(self.delimiter)
+        data.extend(struct.pack("f", self.line_sensor_2_read))
+
+        return data
